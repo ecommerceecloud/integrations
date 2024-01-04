@@ -1,0 +1,372 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ecloud" translate="label" sortOrder="999999" class="ecloud-tab">
+            <label>Ecloud</label>
+        </tab>
+        <section id="ecloud_integrations" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+            <class>separator-top</class>
+            <label>Integration</label>
+            <tab>ecloud</tab>
+            <resource>Ecloud_Integrations::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General</label>
+                <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Active</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="log" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Log Active</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="ecloud_integrations/general/active">1</field>
+                    </depends>
+                </field>
+                <field id="log_name" translate="label comment" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Log file name</label>
+                    <comment>Nombre de archivo de logs (NO debe incluir la extensión del archivo). Por defecto "ecloud_integrations"</comment>
+                    <depends>
+                        <field id="ecloud_integrations/general/active">1</field>
+                        <field id="ecloud_integrations/general/log">1</field>
+                    </depends>
+                </field>
+                <field id="log_api" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Log requests and responses</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Log a detail of all request and responses to and from the ERP in a separate file with "_api" prefix</comment>
+                    <depends>
+                        <field id="ecloud_integrations/general/active">1</field>
+                    </depends>
+                </field>
+                <group id="import" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Importación</label>
+                    <depends>
+                        <field id="ecloud_integrations/general/active">1</field>
+                    </depends>
+                    <group id="price" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Integración de precios</label>
+                        <depends>
+                            <field id="ecloud_integrations/general/active">1</field>
+                        </depends>
+                        <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Active</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="platform" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Platform</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\Platforms</source_model>
+                            <comment>Seleccione la plataforma</comment>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="import_job_id" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Trabajo de importación</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ImportJobs</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="generate_file" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Generar archivo</label>
+                            <comment>Genera el archivo con los datos a importar</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ImportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="import_now" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Importar ahora</label>
+                            <comment>Obtener datos e importar ahora</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ImportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="strategy" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Estrategia de importación</label>
+                            <comment>Ejecutar mediante comando o mediante funciones del módulo de importación</comment>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ExecutionStrategies</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_active" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar cantidad</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_target" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar sobre</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ImportStepTarget</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/limit_active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_size" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Cantidad máxima a importar</label>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/limit_active">1</field>
+                            </depends>
+                            <validate>validate-greater-than-zero</validate>
+                        </field>
+                        <field id="load_restrictions" translate="label" type="file" sortOrder="90" showInDefault="1" showInWebsite="0">
+                            <label>Upload restrictions</label>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/price/active">1</field>
+                            </depends>
+                            <backend_model>Ecloud\Integrations\Model\Config\Backend\ProductRestrictionFile</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">ecloud/integrations/restrictions/price</upload_dir>
+                        </field>
+                    </group>
+                    <group id="stock" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Integración de stock</label>
+                        <depends>
+                            <field id="ecloud_integrations/general/active">1</field>
+                        </depends>
+                        <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Active</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="platform" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Platform</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\Platforms</source_model>
+                            <comment>Seleccione la plataforma</comment>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="import_job_id" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Trabajo de importación</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ImportJobs</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="generate_file" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Generar archivo</label>
+                            <comment>Genera el archivo con los datos a importar</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ImportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="import_now" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Importar ahora</label>
+                            <comment>Obtener datos e importar ahora</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ImportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="strategy" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Estrategia de importación</label>
+                            <comment>Ejecutar mediante comando o mediante funciones del módulo de importación</comment>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ExecutionStrategies</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_active" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar cantidad</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_target" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar sobre</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ImportStepTarget</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/limit_active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_size" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Cantidad máxima a importar</label>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/stock/limit_active">1</field>
+                            </depends>
+                            <validate>validate-greater-than-zero</validate>
+                        </field>
+                    </group>
+                    <group id="catalog" translate="label" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Integración de catálogo</label>
+                        <depends>
+                            <field id="ecloud_integrations/general/active">1</field>
+                        </depends>
+                        <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Active</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="platform" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Platform</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\Platforms</source_model>
+                            <comment>Seleccione la plataforma</comment>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="import_job_id" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Trabajo de importación</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ImportJobs</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="generate_file" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Generar archivo</label>
+                            <comment>Genera el archivo con los datos a importar</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ImportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="import_now" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Importar ahora</label>
+                            <comment>Obtener datos e importar ahora</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ImportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="strategy" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Estrategia de importación</label>
+                            <comment>Ejecutar mediante comando o mediante funciones del módulo de importación</comment>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ExecutionStrategies</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_active" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar cantidad</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_target" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar sobre</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\ImportStepTarget</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/limit_active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_size" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Cantidad máxima a importar</label>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/limit_active">1</field>
+                            </depends>
+                            <validate>validate-greater-than-zero</validate>
+                        </field>
+                        <field id="load_restrictions" translate="label" type="file" sortOrder="90" showInDefault="1" showInWebsite="0">
+                            <label>Upload restrictions</label>
+                            <depends>
+                                <field id="ecloud_integrations/general/import/catalog/active">1</field>
+                            </depends>
+                            <backend_model>Ecloud\Integrations\Model\Config\Backend\ProductRestrictionFile</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">ecloud/integrations/restrictions/catalog</upload_dir>
+                        </field>
+                    </group>
+                </group>
+                <group id="export" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Exportación</label>
+                    <depends>
+                        <field id="ecloud_integrations/general/active">1</field>
+                    </depends>
+                    <group id="order" translate="label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Integración de pedidos</label>
+                        <depends>
+                            <field id="ecloud_integrations/general/active">1</field>
+                        </depends>
+                        <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Active</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="platform" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Platform</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\Platforms</source_model>
+                            <comment>Seleccione la plataforma</comment>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/order/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_active" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar cantidad</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/order/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_size" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Cantidad máxima a exportar</label>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/order/limit_active">1</field>
+                            </depends>
+                            <validate>validate-greater-than-zero</validate>
+                        </field>
+                        <field id="export_now" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Exportar ahora</label>
+                            <comment>Obtener datos y exportar ahora</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ExportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/order/active">1</field>
+                            </depends>
+                        </field>
+                    </group>
+                    <group id="customer" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Integración de clientes</label>
+                        <depends>
+                            <field id="ecloud_integrations/general/active">1</field>
+                        </depends>
+                        <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Active</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="platform" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Platform</label>
+                            <source_model>Ecloud\Integrations\Model\Config\Source\Platforms</source_model>
+                            <comment>Seleccione la plataforma</comment>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/customer/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_active" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Limitar cantidad</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/customer/active">1</field>
+                            </depends>
+                        </field>
+                        <field id="limit_size" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Cantidad máxima a exportar</label>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/customer/limit_active">1</field>
+                            </depends>
+                            <validate>validate-greater-than-zero</validate>
+                        </field>
+                        <field id="export_now" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Exportar ahora</label>
+                            <comment>Obtener datos y exportar ahora</comment>
+                            <frontend_model>Ecloud\Integrations\Block\System\Config\ExportActions</frontend_model>
+                            <depends>
+                                <field id="ecloud_integrations/general/export/customer/active">1</field>
+                            </depends>
+                        </field>
+                    </group>
+                </group>
+            </group>
+        </section>
+        <section id="webapi" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+            <group id="validation" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>API validations</label>
+                <field id="complex_array_limit" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Complex array limit</label>
+                    <comment>Default value: 20 (used if this field is left empty)</comment>
+                    <validate>validate-greater-than-zero</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

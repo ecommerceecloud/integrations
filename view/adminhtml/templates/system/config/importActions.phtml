@@ -1,0 +1,10 @@
+<?= $block->getButtonHtml() ?>
+<script type="text/x-magento-init">
+	{
+		"#<?= $block->getButtonId() ?>" :{
+            "ecloudintegrations/importActions": {
+                "ajaxUrl": "<?= $block->getAjaxUrl() ?>"
+            }
+		}
+    }
+</script>

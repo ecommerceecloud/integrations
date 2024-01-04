@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Ecloud_Integrations::config" title="Ecloud" translate="title"/>
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Ecloud_Integrations::main" title="Ecloud integrations" translate="title" sortOrder="10">
+                    <resource id="Ecloud_Integrations::import" title="Ecloud integrations - Import" translate="title" sortOrder="10" />
+                    <resource id="Ecloud_Integrations::export" title="Ecloud integrations - Export" translate="title" sortOrder="20" />
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

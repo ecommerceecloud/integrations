@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecloud_Integrations::menu" title="Ecloud Integrations" module="Ecloud_Integrations" sortOrder="51" resource="Ecloud_Integrations::menu"/>
+        <add id="Ecloud_Integrations::restriction" title="Manage Restrictions" module="Ecloud_Integrations" sortOrder="10" action="ecloud_integrations/restriction" resource="Ecloud_Integrations::restriction" parent="Ecloud_Integrations::menu"/>
+        <add id="Ecloud_Integrations::configurations" title="Configurations" module="Ecloud_Integrations" sortOrder="20" action="adminhtml/system_config/edit/section/ecloud_integrations" resource="Ecloud_Integrations::config" parent="Ecloud_Integrations::menu"/>
+    </menu>
+</config>

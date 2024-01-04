@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/ecloudintegrations/import/:runType/:importType" method="POST">
+		<service class="Ecloud\Integrations\Api\IntegrationInterface" method="import"/>
+		<resources>
+			<resource ref="Ecloud_Integrations::import"/>
+			<!-- <resource ref="anonymous"/> -->
+		</resources>
+	</route>
+	<route url="/V1/ecloudintegrations/export/:exportType" method="POST">
+		<service class="Ecloud\Integrations\Api\IntegrationInterface" method="export"/>
+		<resources>
+			<resource ref="Ecloud_Integrations::export"/>
+			<!-- <resource ref="anonymous"/> -->
+		</resources>
+	</route>
+</routes>
